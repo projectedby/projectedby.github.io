@@ -1,7 +1,7 @@
 ---
 layout: index
 view: index
-permalink: index.html
+permalink: /posts/2023/11/24/Helloworld.html
 ---
 
 HELLO WORKD

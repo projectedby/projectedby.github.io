@@ -1,5 +1,27 @@
 {
+  "name": "projectedby.github.io",
+  "version": "0.0.1",
+  "description": "ProjectedBy Github Pages",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projectedby/projectedby.github.io.git"
+  },
+  "keywords": [
+    "ProjectedBy",
+    "Github",
+    "Pages"
+  ],
+  "author": "novemberizing <novemberizing@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/projectedby/projectedby.github.io/issues"
+  },
+  "homepage": "https://github.com/projectedby/projectedby.github.io#readme",
   "dependencies": {
-    "@projectedby/cms": "^0.0.6"
+    "@projectedby/cms": "^0.0.11"
   }
 }
