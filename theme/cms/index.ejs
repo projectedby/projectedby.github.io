@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.png" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title><%= opengraph.title %></title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+        <%- include('opengraph.ejs', opengraph) %>
+        <%- include("style.ejs") %>
+    </head>
+    <body>
+        <%- include('header.ejs') %>
+        <div class="container pt-4">
+            <%- include('view/' + view) %>
+        </div>
+        <%- include('footer.ejs') %>
+        <%- include('modal.ejs') %>
+        <%- include('script.ejs') %>
+    </body>
+</html>
