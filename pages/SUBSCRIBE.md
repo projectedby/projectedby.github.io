@@ -1,7 +1,7 @@
 ---
 layout: index
-view: index
-permalink: index.html
+view: subscribe
+permalink: subscribe.html
 opengraph:
     site:
         name: 'ProjectedBy/AI'

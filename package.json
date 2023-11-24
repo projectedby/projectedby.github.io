@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/projectedby/projectedby.github.io#readme",
   "dependencies": {
-    "@projectedby/cms": "^0.0.11"
+    "@projectedby/cms": "^0.0.12"
   }
 }
