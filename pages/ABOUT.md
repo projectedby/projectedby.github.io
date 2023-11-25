@@ -5,6 +5,7 @@ permalink: about.html
 opengraph:
     site:
         name: 'ProjectedBy/AI'
+        url: '/'
 ---
 
 HELLO INDEX
