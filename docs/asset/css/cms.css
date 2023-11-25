@@ -11919,9 +11919,7 @@ section.post > div.button .btn-link {
   color: #663399;
 }
 
-body > div.container > form.signin,
-body > div.container > form.signup,
-body > div.container > form.forgot {
+body > div.container > form.subscription {
   max-width: 300px;
   width: 300px;
 }

@@ -40,8 +40,8 @@
 <header class="mb-2">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <div class="navbar-left">
-                <a class="navbar-brand fw-bold" href="">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="">
                     <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/AI" width="24" height="24" class="me-2">
                     ProjectedBy/AI
                 </a>
@@ -58,35 +58,28 @@
       </nav>
 </header>
 <!-- HEADER -->
-        <div class="container pt-4">
+        <div class="container pt-4 d-flex justify-content-center align-items-center">
             <form id="subscription" class="needs-validation subscription" novalidate>
     <!-- TITLE -->
     <div class="row mb-5">
         <div class="col text-center">
-            <h1 class="fw-bold">Welcome back</h1>
-            <p class="small">Thank for using our service</p>
+            <h1 class="fw-bold">
+                Subscribe newsletter
+                <!-- TODO: 좋은 것을 어떻게 해결해야 할까? -->
+            </h1>
+            <p class="small">
+                Join our subscribers list to get latest news, updates
+            </p>
         </div>
     </div>
     <!-- TITLE -->
     <!-- IMAGE -->
     <div class="row mb-5">
         <div class="col text-center">
-            <img width="160" src="/asset/image/undraw_appreciation_hhh7.svg">
+            <img width="160" src="/asset/image/subscribe.svg">
         </div>
     </div>
     <!-- IMAGE -->
-    <!-- SOCIAL -->
-    <div class="row mb-4">
-        <div class="col small text-center">
-            Sign in using an account you already have.
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col text-center">
-            <a href="#"><img width="48" src="/asset/image/button/google.png"></a>
-        </div>
-    </div>
-    <!-- SOCIAL -->
     <!-- HORIZONTAL -->
     <div class="row mb-2">
         <div class="col">
@@ -97,53 +90,36 @@
     <!-- FORM -->
     <div class="row p-4">
         <div class="col">
-            <div class="row mb-2">
+            <div class="row mb-5">
                 <div class="col">
                     <label for="email" class="form-label small fw-bold">Email</label>
-                    <input type="text" class="form-control" id="email" placeholder="name@example.com or id" required>
+                    <input type="text" class="form-control" id="email" placeholder="name@example.com" required>
                     <div class="invalid-feedback">
-                        Please enter a email or id.
+                        Please enter a email
                     </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="password" class="form-label small fw-bold">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="password" required>
-                    <div class="invalid-feedback">
-                        Please enter a password.
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col small text-end">
-                    <a href="forgot">Forgot password?</a>
                 </div>
             </div>
             <div class="row mb-5">
                 <div class="col d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- FORM -->
-    <!-- SIGNUP -->
-    <div class="row mb-2">
-        <div class="col text-center small">
-            If you don't have an account?
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center small">
-            <a href="/signup">signup</a>
-        </div>
-    </div>
-    <!-- SIGNUP -->
 </form>
+<script type="module">
+    const subscription = document.getElementById('subscription');
+
+    subscription.addEventListener('submit', async event => {
+        e.preventDefault();
+
+        console.log(1);
+    });
+</script>
         </div>
         <!-- FOOTER -->
-<footer class="mt-4 pb-2 pt-3">
+<footer class="p-5 bg-body-tertiary">
     <div class="container">
         <div class="row">
             <div class="col-7 small d-flex align-items-end">
