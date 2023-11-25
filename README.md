@@ -1,6 +1,6 @@
 
 ```sh
-npx projectedby static gen --theme=theme/cms --destination=docs
+npx projectedby static gen --theme=cms --destination=docs
 ```
 
 ```sh

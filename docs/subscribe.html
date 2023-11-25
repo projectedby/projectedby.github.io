@@ -37,8 +37,8 @@
     </head>
     <body>
         <!-- HEADER -->
-<header class="mb-2">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
         <div class="container-fluid">
             <div class="navbar-left d-flex justify-content-start align-items-center">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="">
@@ -50,15 +50,15 @@
                 </span>
             </div>
             <div class="navbar-right d-flex justify-content-end align-items-center">
-                <p style="font-size: .75rem; vertical-align: baseline;" class="d-none d-sm-block"> 
-                    <a href="/subscribe.html" class="fw-bold">Subscribe</a>
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
                 </p>
             </div>
         </div>
       </nav>
 </header>
 <!-- HEADER -->
-        <div class="container pt-4 d-flex justify-content-center align-items-center">
+        <div class="container p-0 d-flex justify-content-center align-items-center">
             <form id="subscription" class="needs-validation subscription" novalidate>
     <!-- TITLE -->
     <div class="row mb-5">
@@ -88,18 +88,18 @@
     </div>
     <!-- HORIZONTAL -->
     <!-- FORM -->
-    <div class="row p-4">
+    <div class="row pt-4">
         <div class="col">
             <div class="row mb-5">
                 <div class="col">
                     <label for="email" class="form-label small fw-bold">Email</label>
-                    <input type="text" class="form-control" id="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
                     <div class="invalid-feedback">
                         Please enter a email
                     </div>
                 </div>
             </div>
-            <div class="row mb-5">
+            <div class="row">
                 <div class="col d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Subscribe</button>
                 </div>
@@ -111,24 +111,48 @@
 <script type="module">
     const subscription = document.getElementById('subscription');
 
-    subscription.addEventListener('submit', async event => {
-        e.preventDefault();
+    const email = document.getElementById('email');
 
-        console.log(1);
+    window.addEventListener('load', event => {
+        projectedby.bootstrap.input.on(email);
+        
+    }, { once: true });
+
+    // projectedby.cms.bootstrap.input.on(email);
+
+    subscription.addEventListener('submit', async event => {
+        event.preventDefault();
+
+        projectedby.bootstrap.input.validate(email);
+
+        projectedby.cms.subscribe(email);
+
+        console.log("register");
     });
 </script>
         </div>
         <!-- FOOTER -->
-<footer class="p-5 bg-body-tertiary">
+<footer class="bg-body-tertiary">
     <div class="container">
         <div class="row">
-            <div class="col-7 small d-flex align-items-end">
-                작성
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
             </div>
             <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
                 <div class="row">
                     <div class="col">
-                        작성
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
                     </div>
                 </div>
             </div>
@@ -138,5 +162,6 @@
 <!-- FOOTER -->
         
                 <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
     </body>
 </html>

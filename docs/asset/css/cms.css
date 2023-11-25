@@ -11857,6 +11857,65 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+div.markdown {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 32px;
+}
+
+div.markdown > h1, div.markdown > .h1 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
+div.markdown > h2, div.markdown > .h2 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
+div.markdown > p {
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+
+div.markdown > pre {
+  padding-top: 8px;
+  padding-bottom: 4px;
+  margin: 0px;
+  overflow-x: auto;
+}
+
+div.markdown pre > code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (min-width: 375px) {
+  div.markdown > pre {
+    max-width: 320px;
+  }
+}
+@media (min-width: 576px) {
+  div.markdown > pre {
+    max-width: 500px;
+  }
+}
+/** --bs-breakpoint-md */
+@media (min-width: 768px) {
+  div.markdown > pre {
+    max-width: 700px;
+  }
+}
+/** --bs-breakpoint-lg */
+@media (min-width: 992px) {
+  div.markdown > pre {
+    max-width: 900px;
+  }
+}
+/** --bs-breakpoint-xl */
+/** --bs-breakpoint-xxl */
 :root {
   --bs-body-font-family: "Montserrat", "Noto Sans KR", sans-serif;
 }
@@ -11867,6 +11926,22 @@ body > header > nav > .container-fluid, body > header > nav > .container-sm, bod
   flex-wrap: inherit;
   align-items: center;
   justify-content: space-between;
+}
+
+body > footer > div.container {
+  min-height: 100px;
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body > div.container {
+  min-height: calc(100vh - 200px);
+}
+
+body > footer > div.container > div.row {
+  width: 100%;
 }
 
 p {
@@ -11922,6 +11997,8 @@ section.post > div.button .btn-link {
 body > div.container > form.subscription {
   max-width: 300px;
   width: 300px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 /** --bs-breakpoint-xs */
