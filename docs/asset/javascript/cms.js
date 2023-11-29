@@ -199,6 +199,16 @@ class ProjectedBy {
     static get firebase(){ return ProjectedBy.#firebase; }
 
     static get cms(){ return ProjectedBy.#cms; }
+
+    static share(data, target = null) {
+        if(target) {
+            return false;
+        }
+
+        navigator.share(data);
+
+        return false;
+    }
 }
 
 
