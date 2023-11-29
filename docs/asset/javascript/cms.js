@@ -1,4 +1,30 @@
+import * as __WEBPACK_EXTERNAL_MODULE_https_www_gstatic_com_firebasejs_10_7_0_firebase_analytics_js_6c7f86fb__ from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+import * as __WEBPACK_EXTERNAL_MODULE_https_www_gstatic_com_firebasejs_10_7_0_firebase_app_js_97f2d8e8__ from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 /******/ var __webpack_modules__ = ({
+
+/***/ "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js":
+/*!**********************************************************************************!*\
+  !*** external "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js" ***!
+  \**********************************************************************************/
+/***/ ((module) => {
+
+var x = y => { var x = {}; __webpack_require__.d(x, y); return x; }
+var y = x => () => x
+module.exports = __WEBPACK_EXTERNAL_MODULE_https_www_gstatic_com_firebasejs_10_7_0_firebase_analytics_js_6c7f86fb__;
+
+/***/ }),
+
+/***/ "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js":
+/*!****************************************************************************!*\
+  !*** external "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js" ***!
+  \****************************************************************************/
+/***/ ((module) => {
+
+var x = y => { var x = {}; __webpack_require__.d(x, y); return x; }
+var y = x => () => x
+module.exports = __WEBPACK_EXTERNAL_MODULE_https_www_gstatic_com_firebasejs_10_7_0_firebase_app_js_97f2d8e8__;
+
+/***/ }),
 
 /***/ "../exception/src/Exception.js":
 /*!*************************************!*\
@@ -111,6 +137,42 @@ class ContentManagementSystem {
 
 /***/ }),
 
+/***/ "./src/Firebase.js":
+/*!*************************!*\
+  !*** ./src/Firebase.js ***!
+  \*************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Firebase)
+/* harmony export */ });
+/* harmony import */ var https_www_gstatic_com_firebasejs_10_7_0_firebase_app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js */ "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js");
+/* harmony import */ var https_www_gstatic_com_firebasejs_10_7_0_firebase_analytics_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js */ "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js");
+
+
+
+class Firebase {
+    static #config = {
+        apiKey: "AIzaSyCVQlwQXor5tPqwrZfUzOdjMFPW9h1uLkE",
+        authDomain: "projectedby-1fb36.firebaseapp.com",
+        projectId: "projectedby-1fb36",
+        storageBucket: "projectedby-1fb36.appspot.com",
+        messagingSenderId: "997313119928",
+        appId: "1:997313119928:web:894a2949463705d6fd964d",
+        measurementId: "G-VZ51NY0GG1"
+    };
+
+    static #application = (0,https_www_gstatic_com_firebasejs_10_7_0_firebase_app_js__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(Firebase.#config);
+    static #analytics = (0,https_www_gstatic_com_firebasejs_10_7_0_firebase_analytics_js__WEBPACK_IMPORTED_MODULE_1__.getAnalytics)(Firebase.#application);
+
+    static get application(){ return Firebase.#application; }
+    static get analytics(){ return Firebase.#analytics; }
+}
+
+
+/***/ }),
+
 /***/ "./src/ProjectedBy.js":
 /*!****************************!*\
   !*** ./src/ProjectedBy.js ***!
@@ -123,14 +185,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bootstrap.js */ "./src/Bootstrap.js");
 /* harmony import */ var _ContentManagementSystem_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentManagementSystem.js */ "./src/ContentManagementSystem.js");
+/* harmony import */ var _Firebase_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Firebase.js */ "./src/Firebase.js");
+
 
 
 
 class ProjectedBy {
     static #bootstrap = _Bootstrap_js__WEBPACK_IMPORTED_MODULE_0__["default"];
+    static #firebase = _Firebase_js__WEBPACK_IMPORTED_MODULE_2__["default"];
     static #cms = _ContentManagementSystem_js__WEBPACK_IMPORTED_MODULE_1__["default"];
 
     static get bootstrap(){ return ProjectedBy.#bootstrap; }
+    static get firebase(){ return ProjectedBy.#firebase; }
 
     static get cms(){ return ProjectedBy.#cms; }
 }

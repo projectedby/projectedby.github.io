@@ -5,8 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "build": "npm run build:css && npm run build:static",
-    "build:css": "sass scss/cms.scss theme/cms/asset/css/cms.css",
-    "build:static": "projectedby static gen --theme=theme/cms --destination=docs",
+    "build:css": "",
+    "build:static": "projectedby static gen --theme=cms --destination=docs",
     "get:theme": "projectedby static theme",
     "test": "mocha --recursive"
   },
@@ -29,6 +29,6 @@
     "bootstrap": "^5.3.2"
   },
   "dependencies": {
-    "@projectedby/cms": "^0.0.18"
+    "@projectedby/cms": "^0.0.19"
   }
 }

@@ -1,11 +1,11 @@
 ---
-layout: index
-view: index
-permalink: index.html
+layout: 'index'
+view: 'index'
+permalink: 'index.html'
 opengraph:
     site:
-        name: 'ProjectedBy/AI'
+        name: 'ProjectedBy/Sub'
         url: '/'
 ---
 
-HELLO INDEX
+안녕하세요.

@@ -11875,14 +11875,40 @@ div.markdown > h2, div.markdown > .h2 {
   padding-bottom: 8px;
 }
 
+div.markdown > h3, div.markdown > .h3 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
+div.markdown > h4, div.markdown > .h4 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
+div.markdown > h5, div.markdown > .h5 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
+div.markdown > h6, div.markdown > .h6 {
+  font-weight: 700;
+  padding-top: 32px;
+  padding-bottom: 8px;
+}
+
 div.markdown > p {
   padding-top: 8px;
   padding-bottom: 4px;
+  padding-left: 8px;
 }
 
 div.markdown > pre {
   padding-top: 8px;
   padding-bottom: 4px;
+  padding-left: 8px;
   margin: 0px;
   overflow-x: auto;
 }
@@ -11890,6 +11916,25 @@ div.markdown > pre {
 div.markdown pre > code {
   max-width: 100%;
   overflow-x: auto;
+}
+
+div.markdown a {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+div.markdown > div.button > a {
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+
+div.markdown summary {
+  margin-left: 32px;
+  font-size: 0.75rem;
+}
+
+div.markdown summary p {
+  margin-bottom: 8px;
 }
 
 @media (min-width: 375px) {
