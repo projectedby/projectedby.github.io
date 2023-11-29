@@ -29,6 +29,6 @@
     "bootstrap": "^5.3.2"
   },
   "dependencies": {
-    "@projectedby/cms": "^0.0.19"
+    "@projectedby/cms": "^0.0.20"
   }
 }
