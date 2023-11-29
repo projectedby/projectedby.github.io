@@ -11867,6 +11867,11 @@ div.markdown > h1, div.markdown > .h1 {
   font-weight: 700;
   padding-top: 32px;
   padding-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+div.markdown > h1 > a, div.markdown > .h1 > a {
+  text-decoration: none;
 }
 
 div.markdown > h2, div.markdown > .h2 {
@@ -11874,6 +11879,48 @@ div.markdown > h2, div.markdown > .h2 {
   padding-top: 8px;
   padding-bottom: 8px;
   margin-left: 8px;
+  font-size: 1.4rem;
+}
+
+div.markdown > h2 + p, div.markdown > .h2 + p {
+  margin-bottom: 16px;
+}
+
+div.markdown > h2 + p > a, div.markdown > .h2 + p > a {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+div.markdown > h2 + p > date, div.markdown > .h2 + p > date {
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+div.markdown > h2 + p > author, div.markdown > .h2 + p > author {
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+div.markdown > h2 + p > author > a, div.markdown > .h2 + p > author > a {
+  text-decoration: none;
+}
+
+div.markdown > ul {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+div.markdown > ul > li {
+  font-size: 0.8rem;
+}
+
+div.markdown > ol {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+div.markdown > ol > li {
+  font-size: 0.8rem;
 }
 
 div.markdown > h3, div.markdown > .h3 {
@@ -11881,6 +11928,7 @@ div.markdown > h3, div.markdown > .h3 {
   padding-top: 8px;
   padding-bottom: 8px;
   margin-left: 8px;
+  font-size: 1.3rem;
 }
 
 div.markdown > h4, div.markdown > .h4 {
@@ -11888,6 +11936,7 @@ div.markdown > h4, div.markdown > .h4 {
   padding-top: 8px;
   padding-bottom: 8px;
   margin-left: 8px;
+  font-size: 1.2rem;
 }
 
 div.markdown > h5, div.markdown > .h5 {
@@ -11895,6 +11944,7 @@ div.markdown > h5, div.markdown > .h5 {
   padding-top: 8px;
   padding-bottom: 8px;
   margin-left: 8px;
+  font-size: 1.1rem;
 }
 
 div.markdown > h6, div.markdown > .h6 {
@@ -11902,12 +11952,14 @@ div.markdown > h6, div.markdown > .h6 {
   padding-top: 8px;
   padding-bottom: 8px;
   margin-left: 8px;
+  font-size: 1rem;
 }
 
 div.markdown > p {
-  padding-top: 8px;
-  padding-bottom: 4px;
-  padding-left: 8px;
+  padding: 0px;
+  margin-bottom: 4px;
+  margin-left: 16px;
+  font-size: 0.8rem;
 }
 
 div.markdown > pre {
@@ -11957,76 +12009,6 @@ div.markdown > div.button > a {
 }
 /** --bs-breakpoint-xl */
 /** --bs-breakpoint-xxl */
-div.markdown.ArtificialIntelligenceNews > p {
-  padding: 0px;
-  margin-bottom: 4px;
-}
-
-div.markdown.ArtificialIntelligenceNews > h1, div.markdown.ArtificialIntelligenceNews > .h1 {
-  font-size: 1.5rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h1 > a, div.markdown.ArtificialIntelligenceNews > .h1 > a {
-  text-decoration: none;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2, div.markdown.ArtificialIntelligenceNews > .h2 {
-  font-size: 1.4rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2 + p, div.markdown.ArtificialIntelligenceNews > .h2 + p {
-  margin-bottom: 16px;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2 + p > a, div.markdown.ArtificialIntelligenceNews > .h2 + p > a {
-  text-decoration: none;
-  font-weight: 700;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2 + p > date, div.markdown.ArtificialIntelligenceNews > .h2 + p > date {
-  font-size: 0.6rem;
-  font-weight: 700;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2 + p > author, div.markdown.ArtificialIntelligenceNews > .h2 + p > author {
-  font-size: 0.6rem;
-  font-weight: 700;
-}
-
-div.markdown.ArtificialIntelligenceNews > h2 + p > author > a, div.markdown.ArtificialIntelligenceNews > .h2 + p > author > a {
-  text-decoration: none;
-}
-
-div.markdown.ArtificialIntelligenceNews > ul {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-div.markdown.ArtificialIntelligenceNews > ul > li {
-  font-size: 0.8rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h3, div.markdown.ArtificialIntelligenceNews > .h3 {
-  font-size: 1.3rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h4, div.markdown.ArtificialIntelligenceNews > .h4 {
-  font-size: 1.2rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h5, div.markdown.ArtificialIntelligenceNews > .h5 {
-  font-size: 1.1rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > h6, div.markdown.ArtificialIntelligenceNews > .h6 {
-  font-size: 1rem;
-}
-
-div.markdown.ArtificialIntelligenceNews > p {
-  margin-left: 16px;
-  font-size: 0.8rem;
-}
-
 :root {
   --bs-body-font-family: "Montserrat", "Noto Sans KR", sans-serif;
 }
