@@ -1850,7 +1850,7 @@ progress {
     --bs-gutter-y: 3rem;
   }
 }
-.table {
+.table, div.markdown table, div.markdown > h3 + table, div.markdown > .h3 + table {
   --bs-table-color-type: initial;
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
@@ -1870,17 +1870,17 @@ progress {
   vertical-align: top;
   border-color: var(--bs-table-border-color);
 }
-.table > :not(caption) > * > * {
+.table > :not(caption) > * > *, div.markdown table > :not(caption) > * > * {
   padding: 0.5rem 0.5rem;
   color: var(--bs-table-color-state, var(--bs-table-color-type, var(--bs-table-color)));
   background-color: var(--bs-table-bg);
   border-bottom-width: var(--bs-border-width);
   box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
 }
-.table > tbody {
+.table > tbody, div.markdown table > tbody {
   vertical-align: inherit;
 }
-.table > thead {
+.table > thead, div.markdown table > thead {
   vertical-align: bottom;
 }
 
@@ -11878,6 +11878,7 @@ div.markdown > h2, div.markdown > .h2 {
   font-weight: 700;
   padding-top: 8px;
   padding-bottom: 8px;
+  margin-top: 16px;
   margin-left: 8px;
   font-size: 1.4rem;
 }
@@ -11931,6 +11932,10 @@ div.markdown > h3, div.markdown > .h3 {
   font-size: 1.3rem;
 }
 
+div.markdown > h3 + pre, div.markdown > .h3 + pre {
+  margin-bottom: 16px;
+}
+
 div.markdown > h4, div.markdown > .h4 {
   font-weight: 700;
   padding-top: 8px;
@@ -11978,6 +11983,36 @@ div.markdown pre > code {
 div.markdown a {
   color: var(--bs-primary);
   text-decoration: underline;
+}
+
+div.markdown > h3 + pre, div.markdown > .h3 + pre {
+  margin-left: 16px;
+}
+
+div.markdown > h3 + table, div.markdown > .h3 + table {
+  margin-left: 16px;
+}
+
+div.markdown table {
+  margin-left: 16px;
+}
+
+div.markdown table th {
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+div.markdown table td {
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+div.markdown blockquote {
+  margin-left: 16px;
+}
+
+div.markdown blockquote p {
+  font-size: 0.7rem;
 }
 
 div.markdown > div.button > a {
