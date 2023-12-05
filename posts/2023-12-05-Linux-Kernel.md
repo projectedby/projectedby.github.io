@@ -1,7 +1,7 @@
 ---
 layout: 'index'
 view: 'post'
-permalink: '/posts/2023/12/04/Linux-Kernel.html'
+permalink: '/posts/2023/12/05/Linux-Kernel.html'
 opengraph:
     site:
         name: 'ProjectedBy/Sub'

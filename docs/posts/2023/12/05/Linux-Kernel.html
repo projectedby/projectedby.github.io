@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/05/Linux-Kernel.html">Linux Kernel</a></h1><h1 id="">#</h1>
+<pre><code class="c language-c">static const struct file_operations socket_file_ops = {
+    .owner =    THIS_MODULE,
+    .llseek =   no_llseek,
+    .read_iter =    sock_read_iter,
+    .write_iter =   sock_write_iter,
+    .poll =     sock_poll,
+    .unlocked_ioctl = sock_ioctl,
+#ifdef CONFIG_COMPAT
+    .compat_ioctl = compat_sock_ioctl,
+#endif
+    .uring_cmd =    io_uring_cmd_sock,
+    .mmap =     sock_mmap,
+    .release =  sock_close,
+    .fasync =   sock_fasync,
+    .splice_write = splice_to_socket,
+    .splice_read =  sock_splice_read,
+    .splice_eof =   sock_splice_eof,
+    .show_fdinfo =  sock_show_fdinfo,
+};
+</code></pre>
+<pre><code class="c language-c">static ssize_t sock_read_iter(struct kiocb *iocb, struct iov_iter *to)
+{
+    struct file *file = iocb-&gt;ki_filp;
+    struct socket *sock = file-&gt;private_data;
+    struct msghdr msg = {.msg_iter = *to,
+                 .msg_iocb = iocb};
+    ssize_t res;
+
+    if (file-&gt;f_flags &amp; O_NONBLOCK || (iocb-&gt;ki_flags &amp; IOCB_NOWAIT))
+        msg.msg_flags = MSG_DONTWAIT;
+
+    if (iocb-&gt;ki_pos != 0)
+        return -ESPIPE;
+
+    if (!iov_iter_count(to))    /* Match SYS5 behaviour */
+        return 0;
+
+    res = sock_recvmsg(sock, &amp;msg, msg.msg_flags);
+    *to = msg.msg_iter;
+    return res;
+}
+</code></pre>
+<p><code>sock_read_iter</code>함수는 소켓을 통해 메시지를 수신하는 함수입니다.</p>
+<p>fs.h</p>
+<p>커널의 I/O 제어 블럭(Kernel I/O Control Block) 구조체</p>
+<p><code>struct kiocb</code>는 커널 I/O 를 관리하는 I/O 제어 블록입니다. 이 구조체에는 처리 중인 파일 및 해당 오프셋과 같은 정보가 포함됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ki_filp</td>
+<td>struct file *</td>
+<td>파일 포인터</td>
+</tr>
+<tr>
+<td>ki_pos</td>
+<td>loff_t</td>
+<td>파일에서의 오프셋</td>
+</tr>
+<tr>
+<td>ki_complete</td>
+<td>void (*ki_complete)(struct kiocb *iocb, long ret)</td>
+<td>파일 I/O 가 끝났을 때의 콜백함수로 ki_pos 에 끝난 지점의 오프셋이 저장됨</td>
+</tr>
+<tr>
+<td>private</td>
+<td>void *</td>
+<td>이 구조체만을 위한 데이터</td>
+</tr>
+<tr>
+<td>ki_flags</td>
+<td>int</td>
+<td>플래그</td>
+</tr>
+<tr>
+<td>ki_ioprio</td>
+<td>u16</td>
+<td>I/O 우선 순위 정보</td>
+</tr>
+<tr>
+<td>ki_waitq</td>
+<td>struct wait<em>page</em>queue</td>
+<td>비동기 버퍼 읽기를 위해서만 사용된다. 읽기가 완료와 관련 있는 페이지 대기열이 저장되고, 유효한 <code>IFF IOCB_WAITQ</code> 가 저장됨</td>
+</tr>
+<tr>
+<td>dio_complete</td>
+<td>ssize<em>t (*dio</em>complete)(void *data)</td>
+<td>I/O 완료 처리가 다시 전달되는 O_DIRECT IO 에서 사용할 수 있습니다. I/O 발행자가 <code>IOCB_DIO_CALLER_COMP</code>를 설정할 경우에만 설정될 수 있으며, 발행자는 <code>ki_complete</code>가 호출될 때 이 핸들러가 존재하는지 확인해야 합니다. 이 핸들러에 전달된 데이터는 <code>dio_complete</code>가 할당될 때 private 으로 할당되어야 합니다.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="c language-c">// ./include/linux/fs.h:371:395
+struct kiocb {
+        struct file             *ki_filp;
+        loff_t                  ki_pos;
+        void (*ki_complete)(struct kiocb *iocb, long ret);
+        void                    *private;
+        int                     ki_flags;
+        u16                     ki_ioprio; /* See linux/ioprio.h */
+        union {
+                /*
+                 * Only used for async buffered reads, where it denotes the
+                 * page waitqueue associated with completing the read. Valid
+                 * IFF IOCB_WAITQ is set.
+                 */
+                struct wait_page_queue  *ki_waitq;
+                /*
+                 * Can be used for O_DIRECT IO, where the completion handling
+                 * is punted back to the issuer of the IO. May only be set
+                 * if IOCB_DIO_CALLER_COMP is set by the issuer, and the issuer
+                 * must then check for presence of this handler when ki_complete
+                 * is invoked. The data passed in to this handler must be
+                 * assigned to -&gt;private when dio_complete is assigned.
+                 */
+                ssize_t (*dio_complete)(void *data);
+        };
+};
+</code></pre>
+<p>./include/linux/fs.h:992</p>
+<pre><code class="c language-c"> 986 /*
+ 987  * f_{lock,count,pos_lock} members can be highly contended and share
+ 988  * the same cacheline. f_{lock,mode} are very frequently used together
+ 989  * and so share the same cacheline as well. The read-mostly
+ 990  * f_{path,inode,op} are kept on a separate cacheline.
+ 991  */
+ 992 struct file {
+ 993         union {
+ 994                 struct llist_node       f_llist;
+ 995                 struct rcu_head         f_rcuhead;
+ 996                 unsigned int            f_iocb_flags;
+ 997         };
+ 998
+ 999         /*
+1000          * Protects f_ep, f_flags.
+1001          * Must not be taken from IRQ context.
+1002          */
+1003         spinlock_t              f_lock;
+1004         fmode_t                 f_mode;
+1005         atomic_long_t           f_count;
+1006         struct mutex            f_pos_lock;
+1007         loff_t                  f_pos;
+1008         unsigned int            f_flags;
+1009         struct fown_struct      f_owner;
+1010         const struct cred       *f_cred;
+1011         struct file_ra_state    f_ra;
+1012         struct path             f_path;
+1013         struct inode            *f_inode;       /* cached value */
+1014         const struct file_operations    *f_op;
+1015
+1016         u64                     f_version;
+1017 #ifdef CONFIG_SECURITY
+1018         void                    *f_security;
+1019 #endif
+1020         /* needed for tty driver, and maybe others */
+1021         void                    *private_data;
+1022
+1023 #ifdef CONFIG_EPOLL
+1024         /* Used by fs/eventpoll.c to link all the hooks to this file */
+1025         struct hlist_head       *f_ep;
+1026 #endif /* #ifdef CONFIG_EPOLL */
+1027         struct address_space    *f_mapping;
+1028         errseq_t                f_wb_err;
+1029         errseq_t                f_sb_err; /* for syncfs */
+1030 } __randomize_layout
+1031   __attribute__((aligned(4)));  /* lest something weird decides that 2 is OK */
+</code></pre>
+<p>./include/linux/pagemap.h:983:struct wait<em>page</em>queue {</p>
+<pre><code class="c language-c"> 983 struct wait_page_queue {
+ 984         struct folio *folio;
+ 985         int bit_nr;
+ 986         wait_queue_entry_t wait;
+ 987 };
+</code></pre>
+<p>./include/linux/mm_types.h:293:struct folio {</p>
+<pre><code class="c language-c">/**
+ * struct folio - Represents a contiguous set of bytes.
+ * @flags: Identical to the page flags.
+ * @lru: Least Recently Used list; tracks how recently this folio was used.
+ * @mlock_count: Number of times this folio has been pinned by mlock().
+ * @mapping: The file this page belongs to, or refers to the anon_vma for
+ *    anonymous memory.
+ * @index: Offset within the file, in units of pages.  For anonymous memory,
+ *    this is the index from the beginning of the mmap.
+ * @private: Filesystem per-folio data (see folio_attach_private()).
+ * @swap: Used for swp_entry_t if folio_test_swapcache().
+ * @_mapcount: Do not access this member directly.  Use folio_mapcount() to
+ *    find out how many times this folio is mapped by userspace.
+ * @_refcount: Do not access this member directly.  Use folio_ref_count()
+ *    to find how many references there are to this folio.
+ * @memcg_data: Memory Control Group data.
+ * @_entire_mapcount: Do not use directly, call folio_entire_mapcount().
+ * @_nr_pages_mapped: Do not use directly, call folio_mapcount().
+ * @_pincount: Do not use directly, call folio_maybe_dma_pinned().
+ * @_folio_nr_pages: Do not use directly, call folio_nr_pages().
+ * @_hugetlb_subpool: Do not use directly, use accessor in hugetlb.h.
+ * @_hugetlb_cgroup: Do not use directly, use accessor in hugetlb_cgroup.h.
+ * @_hugetlb_cgroup_rsvd: Do not use directly, use accessor in hugetlb_cgroup.h.
+ * @_hugetlb_hwpoison: Do not use directly, call raw_hwp_list_head().
+ * @_deferred_list: Folios to be split under memory pressure.
+ *
+ * A folio is a physically, virtually and logically contiguous set
+ * of bytes.  It is a power-of-two in size, and it is aligned to that
+ * same power-of-two.  It is at least as large as %PAGE_SIZE.  If it is
+ * in the page cache, it is at a file offset which is a multiple of that
+ * power-of-two.  It may be mapped into userspace at an address which is
+ * at an arbitrary page offset, but its kernel virtual address is aligned
+ * to its size.
+ */
+struct folio {
+        /* private: don't document the anon union */
+        union {
+                struct {
+        /* public: */
+                        unsigned long flags;
+                        union {
+                                struct list_head lru;
+        /* private: avoid cluttering the output */
+                                struct {
+                                        void *__filler;
+        /* public: */
+                                        unsigned int mlock_count;
+        /* private: */
+                                };
+        /* public: */
+                        };
+                        struct address_space *mapping;
+                        pgoff_t index;
+                        union {
+                                void *private;
+                                swp_entry_t swap;
+                        };
+                        atomic_t _mapcount;
+                        atomic_t _refcount;
+#ifdef CONFIG_MEMCG
+                        unsigned long memcg_data;
+#endif
+        /* private: the union with struct page is transitional */
+                };
+                struct page page;
+        };
+        union {
+                struct {
+                        unsigned long _flags_1;
+                        unsigned long _head_1;
+                        unsigned long _folio_avail;
+        /* public: */
+                        atomic_t _entire_mapcount;
+                        atomic_t _nr_pages_mapped;
+                        atomic_t _pincount;
+#ifdef CONFIG_64BIT
+                        unsigned int _folio_nr_pages;
+#endif
+        /* private: the union with struct page is transitional */
+                };
+                struct page __page_1;
+        };
+        union {
+                struct {
+                        unsigned long _flags_2;
+                        unsigned long _head_2;
+        /* public: */
+                        void *_hugetlb_subpool;
+                        void *_hugetlb_cgroup;
+                        void *_hugetlb_cgroup_rsvd;
+                        void *_hugetlb_hwpoison;
+        /* private: the union with struct page is transitional */
+                };
+        /* private: the union with struct page is transitional */
+                };
+                struct page page;
+        };
+        union {
+                struct {
+                        unsigned long _flags_1;
+                        unsigned long _head_1;
+                        unsigned long _folio_avail;
+        /* public: */
+                        atomic_t _entire_mapcount;
+                        atomic_t _nr_pages_mapped;
+                        atomic_t _pincount;
+#ifdef CONFIG_64BIT
+                        unsigned int _folio_nr_pages;
+#endif
+        /* private: the union with struct page is transitional */
+                };
+                struct page __page_1;
+        };
+        union {
+                struct {
+                        unsigned long _flags_2;
+                        unsigned long _head_2;
+        /* public: */
+                        void *_hugetlb_subpool;
+                        void *_hugetlb_cgroup;
+                        void *_hugetlb_cgroup_rsvd;
+                        void *_hugetlb_hwpoison;
+        /* private: the union with struct page is transitional */
+                };
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/05/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
