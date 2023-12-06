@@ -21,6 +21,8 @@ tags: ['Artificial Intelligence', 'News']
     Jens Dose
 </author>
 
+https://www.ciokorea.com/t/22001/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D%7C%EB%94%A5%EB%9F%AC%EB%8B%9D/316341
+
 독일의 의료용 포장 제조업체인 게레스하이머(Gerresheimer)는 최근 AI, 자동화 및 하이브리드 클라우드를 통해 IT 현대화를 지원
 
 2023년 중반 IT 전략을 본격 수정 - 새로운 전략의 핵심에는 클라우드, 정확히 말해 하이브리드 클라우드
@@ -42,6 +44,8 @@ AI를 기반으로 만든 애플리케이션은 게레스하이머 내부에서 
 <author>
     <a href="https://www.donga.com/Journalist?pid=kimhs@donga.com">김현수 뉴욕 특파원</a>
 </author>
+
+https://www.donga.com/news/Opinion/article/all/20231204/122481607/1
 
 AI ‘개발 vs 안전’ 논쟁 치열해 보여도 결국 기술전쟁 가속화의 신호탄일 뿐
 
@@ -71,6 +75,8 @@ AI 안전성 문제는 인류가 해결해 나가야 할 중요한 문제
     AI리포터
 </author>
 
+https://www.digitaltoday.co.kr/news/articleView.html?idxno=496762
+
 일론 머스크가 인공지능(AI)의 미래에 '디지털 신'이 나타날 것이라고 발언
 
 각종 AI 관련 저작권 침해 소송을 무의미하게 만들 것
@@ -87,6 +93,8 @@ AI 안전성 문제는 인류가 해결해 나가야 할 중요한 문제
 <author>
     박찬 기자
 </author>
+
+https://www.aitimes.com/news/articleView.html?idxno=155652
 
 대형언어모델(LLM)을 단일 실행 파일 형태(.exe)로 변환, PC에서 간단하게 활용 가능하게 만든 '온디바이스 AI' 솔루션
 
@@ -109,6 +117,8 @@ AI 안전성 문제는 인류가 해결해 나가야 할 중요한 문제
 <author>
     <a href="mailto:leegh@businesspost.co.kr">이근호 기자</a>
 </author>
+
+https://www.businesspost.co.kr/BP?command=article_view&num=335065
 
 오픈AI가 ‘레인AI‘라는 반도체 스타트업으로부터 신경망처리장치(NPU, Neural Processing Unit)를 대량 공급 받기로 함
 
