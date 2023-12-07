@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown MongoDB">
+    <h1><a href="/posts/2023/12/06/MongoDB.html">MongoDB</a></h1><h2 id="introductiontomongodb">Introduction to MongoDB</h2>
+<ol>
+<li>Document Database</li>
+</ol>
+<p>A record in MongoDB is a document, which is a data structure composed of field and value pairs. MongoDB documents are similar to JSON objects. The values of fields may include other documents, arrays, and arrays of documents.</p>
+<ul>
+<li>Documents correspond to native data types in many programming languages.</li>
+<li>Embedded documents and arrays reduce need for expensive joins.</li>
+<li>Dynamic schema supports fluent polymorphism.</li>
+</ul>
+<blockquote>
+  <p>fluent polymorphism: 객체 지향 프로그래밍에서 사용되는 디자인 패턴으로, 메서드 체인을 사용하여 다형성을 구현</p>
+</blockquote>
+<ol start="2">
+<li>Collection/View/On-Demand Materialized View</li>
+</ol>
+<ul>
+<li>Collection: MongoDB stores documents in collections. Collections are analogous to tables in relational databases.</li>
+<li>View: Read-only Views (Starting in MongoDB 3.4)</li>
+<li>On-Demand Materialized Views (Starting in MongoDB 4.2).</li>
+</ul>
+<blockquote>
+  <p>On-Demand Materialized Views: An on-demand materialized view is a pre-computed aggregation pipeline result that is stored on and read from disk. On-demand materialized views are typically the results of a $merge or $out stage.</p>
+</blockquote>
+<ol start="3">
+<li>Features</li>
+</ol>
+<ul>
+<li><p>High Performance</p>
+<ul>
+<li>Support for embedded data models reduces I/O activity on database system.</li>
+<li>Indexes support faster queries and can include keys from embedded documents and arrays.</li></ul></li>
+<li><p>Query API</p>
+<ul>
+<li><p>The MongoDB Query API supports read and write operations (CRUD) as well as:</p>
+<ul>
+<li>Data Aggregation</li>
+<li>Text Search and Geospatial Queries</li></ul></li></ul></li>
+<li><p>High Availability</p>
+<ul>
+<li><p>MongoDB's replication facility, called replica set, provides:</p>
+<ul>
+<li>automatic failover</li>
+<li>data redundancy</li></ul></li></ul></li>
+<li><p>Horizontal Scalability</p>
+<ul>
+<li>Sharding distributes data across a cluster of machines.</li>
+<li>Starting in 3.4, MongoDB supports creating zones of data based on the shard key. In a balanced cluster, MongoDB directs reads and writes covered by a zone only to those shards inside the zone.</li></ul></li>
+<li><p>Support for Multiple Storage Engines</p>
+<ul>
+<li>WiredTiger Storage Engine</li>
+<li>In-Memory Storage Engine.</li>
+<li>In addition, MongoDB provides pluggable storage engine API that allows third parties to develop storage engines for MongoDB.</li></ul></li>
+</ul>
+<h3 id="databasesandcollections">Databases and Collections</h3>
+<p>MongoDB stores data records as documents (specifically BSON documents) which are gathered together in collections. A database stores one or more collections of documents.</p>
+<ul>
+<li>Databases</li>
+</ul>
+<p>In MongoDB, databases hold one or more collections of documents. To select a database to use, in mongosh, issue the <code>use &lt;db&gt;</code> statement, as in the following example:</p>
+<pre><code class="sql language-sql">use myDB
+</code></pre>
+<ul>
+<li>Create a Database</li>
+</ul>
+<p>If a database does not exist, MongoDB creates the database when you first store data for that database. As such, you can switch to a non-existent database and perform the following operation in mongosh:</p>
+<pre><code class="sql language-sql">use myNewDB
+db.myNewCollection1.insertOne( { x: 1 } )
+</code></pre>
+<p>The <code>insertOne()</code> operation creates both the database myNewDB and the collection myNewCollection1 if they do not already exist. Be sure that both the database and collection names follow MongoDB Naming Restrictions.</p>
+<ul>
+<li>Collections</li>
+</ul>
+<p>MongoDB stores documents in collections. Collections are analogous to tables in relational databases.</p>
+<p>Create a Collection</p>
+<p>If a collection does not exist, MongoDB creates the collection when you first store data for that collection.</p>
+<pre><code class="sql language-sql">db.myNewCollection2.insertOne( { x: 1 } )
+db.myNewCollection3.createIndex( { y: 1 } )
+</code></pre>
+<p>Both the insertOne() and the createIndex() operations create their respective collection if they do not already exist. Be sure that the collection name follows MongoDB Naming Restrictions.</p>
+<ul>
+<li>Explicit Creation</li>
+</ul>
+<p>MongoDB provides the <code>db.createCollection()</code> method to explicitly create a collection with various options, such as setting the maximum size or the documentation validation rules. If you are not specifying these options, you do not need to explicitly create the collection since MongoDB creates new collections when you first store data for the collections.</p>
+<p>To modify these collection options, see collMod.</p>
+<ul>
+<li>Document Validation</li>
+</ul>
+<p>By default, a collection does not require its documents to have the same schema; i.e. the documents in a single collection do not need to have the same set of fields and the data type for a field can differ across documents within a collection.</p>
+<p>Starting in MongoDB 3.2, however, you can enforce document validation rules for a collection during update and insert operations. See Schema Validation for details.</p>
+<p>For deployments hosted in MongoDB Atlas, the Performance Advisor and the MongoDB Atlas UI detect common schema design issues and suggest modifications that follow MongoDB best practices. To learn more, see Schema Suggestions.</p>
+<ul>
+<li>Modifying Document Structure</li>
+</ul>
+<p>To change the structure of the documents in a collection, such as add new fields, remove existing fields, or change the field values to a new type, update the documents to the new structure.</p>
+<ul>
+<li>Unique Identifiers</li>
+</ul>
+<p>Collections are assigned an immutable UUID. The collection UUID remains the same across all members of a replica set and shards in a sharded cluster.</p>
+<p>To retrieve the UUID for a collection, run either the listCollections command or the db.getCollectionInfos() method.</p>
+<h3 id="views">Views</h3>
+<p>A MongoDB view is a read-only queryable object whose contents are defined by an aggregation pipeline on other collections or views.</p>
+<p>MongoDB does not persist the view contents to disk. A view's content is computed on-demand when a client queries the view.</p>
+<p>https://www.mongodb.com/docs/manual/core/views/</p>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'MongoDB',
+            url: '/posts/2023/12/06/MongoDB.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
