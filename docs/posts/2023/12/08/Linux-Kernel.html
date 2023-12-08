@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/08/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="664netsocketc1141sock_write_iteriocbstructkiocbfromstructiov_iterssize_t">리눅스 커널 스니펫 6.6.4 net/socket.c:1141 sock<em>write</em>iter(iocb: struct kiocb *, from: struct iov<em>iter *): ssize</em>t</h2>
+<p><code>sock_write_iter(...)</code> 함수는 소켓 쓰기를 반복적으로 수행하는 함수입니다. 반복적 쓰기를 위한 I/O Vector 와 커널 I/O 컨트롤 블록을 파라미터로 받아서, 반복적 쓰기를 수행합니다. 커널 I/O 컨트롤 블록의 파일 정보에 존재하는 소켓 정보를 초기화하고 메시지 헤더에 메시지 반복자 필드에 I/O Vector 를 메시지 I/O 컨트롤 블록에 커널 I/O 컨트롤 블록을 대입하고, 컨트롤 블록의 위치가 0이 아니면 잘못된 위치임을 나타내는 -ESPIPE 를 리턴합니다. 만약에 파일이 논블록이거나 비동기 I/O 를 지원하게 되면 <code>IOCB_NOWAIT</code>, 메시지 헤더의 플래그에 <code>MSG_DONTWAIT</code>를 설정합니다. 그리고 소켓 타입이 SOCK<em>SEQPACKET 이면 MSG</em>EOR 플래그를 설정하여 메시지 데이터의 레코드가 끝임을 표시하게 됩니다. 이렇게 메시지 헤더를 초기화하고 에러처리를 한 후에 <code>__sock_sendmsg(...)</code> 함수를 호출하여 메시지 전송을 수행하며 전송이 끝나면 <code>from: struct iov_iter *</code> 변수에 갱신된 메시지 반복자를 대입하고, <code>__sock_sendmsg(...)</code> 함수의 리턴 값을 리턴하게 됩니다. 리턴 값은 0(성공), -1(실패), 0 보다 클 경우 보낸 데이터의 크기입니다. 보통 보낸 데이터 크기는 <code>__sock_sendmsg(...) 의 리턴값 - sizeof(struct msghdr) - sizeof(struct iovec)</code>로 계산할 수 있습니다.</p>
+<pre><code class="c language-c">// net/socket.c:1141
+
+static ssize_t sock_write_iter(struct kiocb *iocb, struct iov_iter *from)
+{
+        struct file *file = iocb-&gt;ki_filp;
+        struct socket *sock = file-&gt;private_data;
+        struct msghdr msg = {.msg_iter = *from,
+                             .msg_iocb = iocb};
+        ssize_t res;
+
+        if (iocb-&gt;ki_pos != 0)
+                return -ESPIPE;
+
+        if (file-&gt;f_flags &amp; O_NONBLOCK || (iocb-&gt;ki_flags &amp; IOCB_NOWAIT))
+                msg.msg_flags = MSG_DONTWAIT;
+
+        if (sock-&gt;type == SOCK_SEQPACKET)
+                msg.msg_flags |= MSG_EOR;
+
+        res = __sock_sendmsg(sock, &amp;msg);
+        *from = msg.msg_iter;
+        return res;
+}
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/08/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
