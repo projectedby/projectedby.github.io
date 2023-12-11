@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/09/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="664netsocketcsock_mmapfilestructfilevmastructvm_area_structint">리눅스 커널(6.6.4) 코드 스니펫: ./net/socket.c <code>sock_mmap(file: struct file *, vma: struct vm_area_struct *): int</code></h2>
+<p>소켓의 메모리를 메모리 맵으로 매핑하는 함수</p>
+<p>file: 소켓 파일
+vma: 메모리 맵 구조체</p>
+<ul>
+<li>소켓의 상태를 확인</li>
+<li>소켓의 메모리 크기를 계산</li>
+<li>메모리 맵을 생성</li>
+<li>소켓의 메모리를 메모리 맵에 매핑</li>
+<li>sock<em>mmap 함수가 성공하면, 메모리 맵 구조체의 vm</em>flags 필드에 다음과 같은 플래그가 설정<ul>
+<li>MAP_SHARED: 소켓의 메모리를 공유</li>
+<li>MAP_ANONYMOUS: 소켓의 메모리를 이름 없는 메모리 맵으로 매핑</li></ul></li>
+<li>sock_mmap 함수가 실패하면, 다음과 같은 오류가 발생<ul>
+<li>EINVAL: 잘못된 인수가 전달</li>
+<li>ENOMEM: 메모리 부족</li>
+<li>EPERM: 소켓의 소유자가 아님</li></ul></li>
+</ul>
+<p>소켓의 메모리를 메모리 맵으로 매핑하면, 다음과 같은 장점이 있습니다.</p>
+<p>소켓의 상태를 빠르게 확인할 수 있습니다.
+소켓의 데이터를 직접 읽고 쓸 수 있습니다.
+소켓의 메모리 영역을 공유할 수 있습니다.</p>
+<h2 id="664netsocketc1410sock_mmapfilestructfilevmastructvm_area_structint">리눅스 커널(6.6.4) 코드 스니펫: ./net/socket.c:1410 <code>sock_mmap(file: struct file *, vma: struct vm_area_struct *): int</code></h2>
+<p>소켓의 메모리를 메모리 맵으로 매핑하는 함수로, 소켓의 타입이나 프로토콜 등에 의해서 오퍼레이터들은 달라질 수 있는데, 여러 종류의 소켓의 특성에 맞는 메모리 매핑함수를 호출하는 것입니다. 공통적으로 소켓의 상태를 확인하고 소켓의 메모리 크기를 계산 한 후에 적절한 크기의 메모리 맵을 생성하고 소켓의 메모리를 메모리 맵에 매핑하는 연산을 수행하게 됩니다.</p>
+<pre><code class="c language-c">// net/socket.c:1410
+
+static int sock_mmap(struct file *file, struct vm_area_struct *vma)
+{
+        struct socket *sock = file-&gt;private_data;
+
+        return READ_ONCE(sock-&gt;ops)-&gt;mmap(file, sock, vma);
+}
+</code></pre>
+<p>READ_ONCE</p>
+<p>위 코드는 변수 x의 값을 읽기 전에 변수 x의 읽기 잠금을 획득합니다. 그리고, 변수 x의 값을 읽은 후에는 읽기 잠금을 해제합니다. 따라서, 다른 스레드가 변수 x의 값을 변경하는 경우에도, 변수 y는 변수 x의 값을 읽을 때의 값을 유지합니다.</p>
+<p>READ_ONCE 매크로는 다음과 같은 경우에 사용됩니다.</p>
+<ul>
+<li>변수의 값을 읽은 후에는 변수의 값을 변경하지 않는 경우</li>
+<li>변수의 값이 다른 스레드에서 변경되는 것을 방지해야 하는 경우</li>
+</ul>
+<p>READ<em>ONCE 매크로와 유사한 기능을 하는 C 언어의 매크로로는 ATOMIC</em>READ가 있습니다. ATOMIC_READ 매크로는 변수의 값을 읽을 때 원자성을 보장합니다. 즉, 변수의 값을 읽는 동안 다른 스레드가 변수의 값을 변경할 수 없습니다.</p>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/09/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
