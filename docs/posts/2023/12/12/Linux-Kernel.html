@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/12/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="664netsocketc1242sock_ioctlfilestructfilecmdunsignedargunsignedlonglong">리눅스 커널 코드 스니펫 (6.6.4) net/socket.c:1242 sock_ioctl(file: struct file *, cmd: unsigned, arg: unsigned long): long</h2>
+<p>소켓의 ioctl 요청을 처리하는 함수입니다. ioctl 요청은 소켓의 설정, 데이터 전송, 디버깅 등이 있습니다. 파라미터를 통해 전달된 <code>file: struct file *</code>에서 <code>sock: struct socket *</code>을 추출하여, <code>sock</code> 변수에 존재하는 오퍼레이터와 <code>sk: struct sock *</code> 소켓 커널 구조체를 추출하여 초기화하고, <code>sk</code>를 통하여 네트워크 네임스페이스 구조체를 초기화합니다. 커맨드가 장치에 특수한 명령인 경우 (<code>SIOCDEVPRIVATE &lt;= cmd &lt;= SIOCDEVPRIVATE + 15</code>), 먼저 arg 를 <code>ifr: struct ifreq</code> 에 저장하고 <code>dev_ioctl(...)</code> 함수를 수행합니다. 만약에 복사가 필요하면 <code>put_user_ifreq(...)</code> 함수를 호출하고 <code>dev_ioctl(...)</code> 리턴 값을 리턴하게 됩니다. <code>get_user_ifreq(...)</code> 와 <code>put_user_ifreq(...)</code> 가 실패하면 <code>-EFAULT</code>를 리턴하게 됩니다. 주석에서 나오듯이 <code>arg</code> 는 사용자 모드 포인터가 될 수 있습니다. (포인터가 될 경우 arg 를 통해서 쿼리한 값을 호출자 함수에 전달할 수 있습니다.) 다만, <code>put_user_ifreq(...)</code> 혹은 <code>put_user(...)</code> 등의 수행을 해서, 의미 있는 출력 값을 가지기는 하는데, 그 이후 호출자에게 전달하지 못하고 사용되어지지는 않습니다. ,커맨드가 무선 네트워크 명령(<code>SIOCIWFIRST</code>, <code>SIOCIWLAST</code>) 범위에 속하는 경우 <code>wext_handle_ioctl(...)</code> 함수를 호출하게 됩니다. 그리고 장치만을 위한 커맨드나 무선 네트워크 명령어가 아닐 경우 각각의 명령에 따라서, 필요한 함수를 호출하게 됩니다.</p>
+<ul>
+<li>FIOSETOWN, SIOCSPGRP: 프로세스 아이디를 설정</li>
+<li>FIOGETOWN, SIOCGPGRP: 프로세스 아이디를 출력</li>
+<li>SIOCGIFBR, SIOCSIFBR, SIOCBRADDBR, SIOCBRDELBR: 브리지 네트워크 ioctl 요청을 처리</li>
+<li>SIOCGIFVLAN, SIOCSIFVLAN: VLAN 네트워크 ioctl 요청을 처리</li>
+<li>SIOCGSKNS: 네트워크 네임스페이스 관련 정보를 반환</li>
+<li>SIOCGSTAMP<em>OLD, SIOCGSTAMPNS</em>OLD, SIOCGSTAMP<em>NEW, SIOCGSTAMPNS</em>NEW: 소켓 타임스탬프 정보를 반환</li>
+<li>SIOCGIFCONF: 네트워크 인터페이스 정보를 반환</li>
+<li>기타 ioctl 명령어는 sock<em>do</em>ioctl 함수를 호출하여 처리</li>
+</ul>
+<pre><code class="c language-c">// net/socket.c:1242
+
+/*
+ *      With an ioctl, arg may well be a user mode pointer, but we don't know
+ *      what to do with it - that's up to the protocol still.
+ */
+static long sock_ioctl(struct file *file, unsigned cmd, unsigned long arg)
+{
+        const struct proto_ops  *ops;
+        struct socket *sock;
+        struct sock *sk;
+        void __user *argp = (void __user *)arg;
+        int pid, err;
+        struct net *net;
+
+        sock = file-&gt;private_data;
+        ops = READ_ONCE(sock-&gt;ops);
+        sk = sock-&gt;sk;
+        net = sock_net(sk);
+        if (unlikely(cmd &gt;= SIOCDEVPRIVATE &amp;&amp; cmd &lt;= (SIOCDEVPRIVATE + 15))) {
+                struct ifreq ifr;
+                void __user *data;
+                bool need_copyout;
+                if (get_user_ifreq(&amp;ifr, &amp;data, argp))
+                        return -EFAULT;
+                err = dev_ioctl(net, cmd, &amp;ifr, data, &amp;need_copyout);
+                if (!err &amp;&amp; need_copyout)
+                        if (put_user_ifreq(&amp;ifr, argp))
+                                return -EFAULT;
+        } else
+#ifdef CONFIG_WEXT_CORE
+        if (cmd &gt;= SIOCIWFIRST &amp;&amp; cmd &lt;= SIOCIWLAST) {
+                err = wext_handle_ioctl(net, cmd, argp);
+        } else
+#endif
+                switch (cmd) {
+                case FIOSETOWN:
+                case SIOCSPGRP:
+                        err = -EFAULT;
+                        if (get_user(pid, (int __user *)argp))
+                                break;
+                        err = f_setown(sock-&gt;file, pid, 1);
+                        break;
+                case FIOGETOWN:
+                case SIOCGPGRP:
+                        err = put_user(f_getown(sock-&gt;file),
+                                       (int __user *)argp);
+                        break;
+                case SIOCGIFBR:
+                case SIOCSIFBR:
+                case SIOCBRADDBR:
+                case SIOCBRDELBR:
+                        err = br_ioctl_call(net, NULL, cmd, NULL, argp);
+                        break;
+                case SIOCGIFVLAN:
+                case SIOCSIFVLAN:
+                        err = -ENOPKG;
+                        if (!vlan_ioctl_hook)
+                                request_module("8021q");
+
+                        mutex_lock(&amp;vlan_ioctl_mutex);
+                        if (vlan_ioctl_hook)
+                                err = vlan_ioctl_hook(net, argp);
+                        mutex_unlock(&amp;vlan_ioctl_mutex);
+                        break;
+                case SIOCGSKNS:
+                        err = -EPERM;
+                        if (!ns_capable(net-&gt;user_ns, CAP_NET_ADMIN))
+                                break;
+
+                        err = open_related_ns(&amp;net-&gt;ns, get_net_ns);
+                        break;
+                case SIOCGSTAMP_OLD:
+                case SIOCGSTAMPNS_OLD:
+                        if (!ops-&gt;gettstamp) {
+                                err = -ENOIOCTLCMD;
+                                break;
+                        }
+                        err = ops-&gt;gettstamp(sock, argp,
+                                             cmd == SIOCGSTAMP_OLD,
+                                             !IS_ENABLED(CONFIG_64BIT));
+                        break;
+                case SIOCGSTAMP_NEW:
+                case SIOCGSTAMPNS_NEW:
+                        if (!ops-&gt;gettstamp) {
+                                err = -ENOIOCTLCMD;
+                                break;
+                        }
+                        err = ops-&gt;gettstamp(sock, argp,
+                                             cmd == SIOCGSTAMP_NEW,
+                                             false);
+                        break;
+
+                case SIOCGIFCONF:
+                        err = dev_ifconf(net, argp);
+                        break;
+
+                default:
+                        err = sock_do_ioctl(net, sock, cmd, arg);
+                        break;
+                }
+        return err;
+}
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/12/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>

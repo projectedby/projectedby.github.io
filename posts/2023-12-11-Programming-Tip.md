@@ -50,3 +50,5 @@ JDK의 기술적인 정의와 일상적인 정의
 <url>https://www.blockmedia.co.kr/archives/423655</url>
 
 미국의 SNS 운영사 ‘메타(Meta)’가 페이스북 메신저에 종단 간 암호화(End-to-End Encryption) 기술을 도입
+
+

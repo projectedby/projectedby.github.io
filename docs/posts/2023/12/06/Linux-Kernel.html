@@ -33,7 +33,10 @@
         <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
 
                 <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <link href="/asset/css/cms.css" rel="stylesheet">
+
     </head>
     <body>
         <!-- HEADER -->
@@ -83,7 +86,7 @@
 출처: https://revdev.tistory.com/55 [Segmentation Fault:티스토리]</p>
 <p>iov_iter 개념은 새로운 것이 아닙니다. 이 API는 2007년 Nick Piggin에 의해 2.6.24 커널에 처음 추가되었습니다. 그러나 작년에 이 API를 확장하고 커널의 더 많은 부분에서 사용하려는 노력이 있었습니다. 예를 들어 3.19 병합 창에서는 네트워킹 하위 시스템으로의 첫 번째 단계를 확인해야 합니다.</p>
 <p>The iov_iter concept is not new; it was first added by Nick Piggin for the 2.6.24 kernel in 2007. But there has been an effort over the last year to expand this API and use it in more parts of the kernel; the 3.19 merge window should see it making its first steps into the networking subsystem, for example.</p>
-<p>An iov_iter structure is essentially an iterator for working through an iovec structure, defined in <uapi/linux/uio.h> as:</p>
+<p>An iov_iter structure is essentially an iterator for working through an iovec structure, defined in <uapi linux="" uio.h=""> as:</uapi></p>
 <pre><code class="c language-c">    struct iovec
     {
     void __user *iov_base;
@@ -92,7 +95,7 @@
 </code></pre>
 <p>This structure matches the user-space iovec structure defined by POSIX and used with system calls like readv(). As the "vec" portion of the name would suggest, iovec structures tend to come in arrays; as a whole, an iovec describes a buffer that may be scattered in both physical and virtual memory.</p>
 <p>이 구조는 POSIX에서 정의하고 readv()와 같은 시스템 호출과 함께 사용되는 사용자 공간 iovec 구조와 일치합니다. 이름의 "vec" 부분에서 알 수 있듯이 iovec 구조는 배열로 나타나는 경향이 있습니다. 전체적으로 iovec은 물리적 메모리와 가상 메모리 모두에 분산될 수 있는 버퍼를 설명합니다.</p>
-<p>The actual iov_iter structure is defined in <linux/uio.h>:</p>
+<p>The actual iov_iter structure is defined in <linux uio.h="">:</linux></p>
 <pre><code class="c language-c">    struct iov_iter {
     int type;
     size_t iov_offset;
@@ -209,7 +212,7 @@ size_t copy_from_iter(void *addr, size_t bytes, struct iov_iter *i);
 <p>최종 결과는 iov<em>iter 인터페이스가 사용자 공간 버퍼 처리와 관련된 많은 복잡성을 숨기는 표준 방법으로 천천히 자리잡고 있다는 것입니다. 앞으로는 더 많은 곳에서 사용이 장려될 것으로 예상됩니다. 7년 정도 밖에 걸리지 않았지만 iov</em>iter는 대부분의 커널 개발자가 알고 싶어하는 인터페이스가 되는 지점에 도달한 것으로 보입니다.</p>
 <p>커널에서 user_backed는 사용자 공간에서 관리되는 메모리를 나타내는 용어입니다. 사용자 공간에서 관리되는 메모리는 커널이 관리하는 메모리와 구별됩니다.</p>
 <p>// ./include/linux/uio.h:41</p>
-<hr />
+<hr>
 <pre><code class="c language-c">// ./include/linux/uio.h:41
 struct iov_iter {
         u8 iter_type;

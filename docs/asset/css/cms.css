@@ -11932,10 +11932,6 @@ div.markdown > h3, div.markdown > .h3 {
   font-size: 1.3rem;
 }
 
-div.markdown > h3 + pre, div.markdown > .h3 + pre {
-  margin-bottom: 16px;
-}
-
 div.markdown > h4, div.markdown > .h4 {
   font-weight: 700;
   padding-top: 8px;
@@ -11967,11 +11963,22 @@ div.markdown > p {
   font-size: 0.8rem;
 }
 
+div.markdown > span {
+  padding: 0px;
+  margin-bottom: 16px;
+  margin-left: 32px;
+  font-size: 0.6rem;
+}
+
+div.markdown > span + p {
+  margin-top: 8px;
+}
+
 div.markdown > pre {
   padding-top: 8px;
   padding-bottom: 4px;
   padding-left: 8px;
-  margin: 0px;
+  margin: 0px 0px 16px 8px; /* top, right, bottom, left */
   overflow-x: auto;
 }
 
@@ -12018,6 +12025,10 @@ div.markdown blockquote p {
 div.markdown > div.button > a {
   color: var(--bs-primary);
   text-decoration: none;
+}
+
+span.katex-html[aria-hidden=true] {
+  display: none;
 }
 
 @media (min-width: 375px) {
