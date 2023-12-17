@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/15/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="664netsocketc1434sock_fasyncfdintfilpstructfileonintint">리눅스 커널 코드 스니펫 (6.6.4) net/socket.c:1434 <code>sock_fasync(fd: int, filp: struct file *, on: int): int</code></h2>
+<p>소켓에 대한 비동기 이벤트 알림을 설정하거나 해제하는 함수입니다. <code>on: int</code> 가 1이면 이벤트 알림을 설정하고, <code>on: int</code> 가 0이면 이벤트 알림을 해제하는데, 이벤트 알림을 사용하면 커널은 소켓에 대한 이벤트를 처리하기 위한 루프를 수행할 필요가 없고 이벤트가 발생할 때 알림을 받을 수 있기 때문에 효율적으로 소켓을 관리할 수 있습니다. 알림을 설정하는 함수는 <code>fasync_helper(...)</code> 으로 알림이 설정되면, socket wait queue 의 리스트에 큐에 대한 참조가 설정되고, 커널 소켓 플래그에 <code>SOCK_FASYNC</code>가 설정되기 됩니다. 소켓 커널 구조체를 파일 구조체에서 가지고 올 수 없으면, <code>-EINVAL</code> 를 리턴하고 그렇지 않을 경우 성공을 나타내는 0을 리턴하게 됩니다.</p>
+<pre><code class="c language-c">// net/socket.c:1434
+
+/*
+ *      Update the socket async list
+ *
+ *      Fasync_list locking strategy.
+ *
+ *      1. fasync_list is modified only under process context socket lock
+ *         i.e. under semaphore.
+ *      2. fasync_list is used under read_lock(&amp;sk-&gt;sk_callback_lock)
+ *         or under socket lock
+ */
+
+static int sock_fasync(int fd, struct file *filp, int on)
+{
+        struct socket *sock = filp-&gt;private_data;
+        struct sock *sk = sock-&gt;sk;
+        struct socket_wq *wq = &amp;sock-&gt;wq;
+
+        if (sk == NULL)
+                return -EINVAL;
+
+        lock_sock(sk);
+        fasync_helper(fd, filp, on, &amp;wq-&gt;fasync_list);
+
+        if (!wq-&gt;fasync_list)
+                sock_reset_flag(sk, SOCK_FASYNC);
+        else
+                sock_set_flag(sk, SOCK_FASYNC);
+
+        release_sock(sk);
+        return 0;
+}
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/15/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
