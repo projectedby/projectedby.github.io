@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown TCP">
+    <h1><a href="/posts/2023/12/16/TCP.html">TCP</a></h1><h2 id="32specificoptiondefinitions">3.2. Specific Option Definitions</h2>
+<p>A TCP Option, in the mandatory option set, is one of an End of Option List Option, a No-Operation Option, or a Maximum Segment Size Option.</p>
+<ul>
+<li>End of Option List Option - This option code indicates the end of the option list.</li>
+<li>A No-Operation Option is formatted as follows: This option code can be used between options, for example, to align the beginning of a subsequent option on a word boundary.</li>
+<li>A Maximum Segment Size Option: If this option is present, then it communicates the maximum receive segment size at the TCP endpoint that sends this segment. This value is limited by the IP reassembly limit.</li>
+</ul>
+<p>Additional RFCs define some other commonly used options that are recommended to implement for high performance but are not necessary for basic TCP interoperability. These are the TCP Selective Acknowledgment (SACK) Option [22] [26], TCP Timestamp (TS) Option [47], and TCP Window Scale (WS) Option [47].</p>
+<p>TCP SACK (Selective Acknowledgement)은 데이터 수신자가 성공적으로 수락된 모든 데이터 세그먼트에 대해 보낸 사람에게 알리는 승인 메커니즘입니다.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SND.UNA</td>
+<td>send unacknowledged</td>
+</tr>
+<tr>
+<td>SND.NXT</td>
+<td>send next</td>
+</tr>
+<tr>
+<td>SND.WND</td>
+<td>send window</td>
+</tr>
+<tr>
+<td>SND.UP</td>
+<td>send urgent pointer</td>
+</tr>
+<tr>
+<td>SND.WL1</td>
+<td>segment sequence number used for last window update</td>
+</tr>
+<tr>
+<td>SND.WL2</td>
+<td>segment acknowledgment number used for last window update</td>
+</tr>
+<tr>
+<td>ISS</td>
+<td>initial send sequence number</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV.NXT</td>
+<td>receive next</td>
+</tr>
+<tr>
+<td>RCV.WND</td>
+<td>receive window</td>
+</tr>
+<tr>
+<td>RCV.UP</td>
+<td>receive urgent pointer</td>
+</tr>
+<tr>
+<td>IRS</td>
+<td>initial receive sequence number</td>
+</tr>
+</tbody>
+</table>
+<pre><code>                   1         2          3          4
+              ----------|----------|----------|----------
+                     SND.UNA    SND.NXT    SND.UNA
+                                          +SND.WND
+</code></pre>
+<ol>
+<li>old sequence numbers that have been acknowledged</li>
+<li>sequence numbers of unacknowledged data</li>
+<li>sequence numbers allowed for new data transmission</li>
+<li>future sequence numbers that are not yet allowed</li>
+</ol>
+<pre><code>                       1          2          3
+                   ----------|----------|----------
+                          RCV.NXT    RCV.NXT
+                                    +RCV.WND
+</code></pre>
+<ol>
+<li>old sequence numbers that have been acknowledged</li>
+<li>sequence numbers allowed for new reception</li>
+<li>future sequence numbers that are not yet allowed</li>
+</ol>
+<p>There are also some variables used frequently in the discussion that take their values from the fields of the current segment.</p>
+<p>Table 4: Current Segment Variables
+Variable    Description
+SEG.SEQ    segment sequence number
+SEG.ACK    segment acknowledgment number
+SEG.LEN    segment length
+SEG.WND    segment window
+SEG.UP    segment urgent pointer</p>
+<p>A connection progresses through a series of states during its lifetime. The states are: LISTEN, SYN-SENT, SYN-RECEIVED, ESTABLISHED, FIN-WAIT-1, FIN-WAIT-2, CLOSE-WAIT, CLOSING, LAST-ACK, TIME-WAIT, and the fictional state CLOSED. CLOSED is fictional because it represents the state when there is no TCB, and therefore, no connection. Briefly the meanings of the states are:</p>
+<p>LISTEN -
+represents waiting for a connection request from any remote TCP peer and port.
+SYN-SENT -
+represents waiting for a matching connection request after having sent a connection request.
+SYN-RECEIVED -
+represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request.
+ESTABLISHED -
+represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection.
+FIN-WAIT-1 -
+represents waiting for a connection termination request from the remote TCP peer, or an acknowledgment of the connection termination request previously sent.
+FIN-WAIT-2 -
+represents waiting for a connection termination request from the remote TCP peer.
+CLOSE-WAIT -
+represents waiting for a connection termination request from the local user.
+CLOSING -
+represents waiting for a connection termination request acknowledgment from the remote TCP peer.
+LAST-ACK -
+represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP peer (this termination request sent to the remote TCP peer already included an acknowledgment of the termination request sent from the remote TCP peer).
+TIME-WAIT -
+represents waiting for enough time to pass to be sure the remote TCP peer received the acknowledgment of its connection termination request and to avoid new connections being impacted by delayed segments from previous connections.
+CLOSED -
+represents no connection state at all.</p>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'TCP',
+            url: '/posts/2023/12/16/TCP.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
