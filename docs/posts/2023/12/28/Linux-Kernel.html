@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/28/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="18664netsocketc247move_addr_to_kerneluaddr__uservoidulenintkaddrstructsockaddr_storageint">리눅스 커널 코드 스니펫 #18 6.6.4 net/socket.c:247 move<em>addr</em>to<em>kernel(uaddr: &lt;&lt;__user&gt;&gt; void *, ulen: int, kaddr: struct sockaddr</em>storage *): int</h2>
+<p>사용자 공간의 소켓 주소를 커널 공간의 소켓 주소 저장소로 복사하는 함수입니다. ulen 이 크기가 0보다 작은 값이거나 sockaddr<em>storage 구조체 크기보다 크면 잘못된 값을 뜻하는 -EINVAL 를 리턴하고, 크기가 0이면 아무런 작업이 이루지지 않았기 때문에 0이 리턴됩니다. 이렇게 에러처리가 끝난 후에 copy</em>from<em>user 함수를 사용하여 사용자 공간의 소켓 주소를 커널 공간의 주소로 복사합니다. 복사한 이후에 추가적으로 audit</em>sockaddr 함수를 호출하여 소켓 주소가 올바른지 확인하는 작업을 거친 후에 audit_sockaddr 함수의 리턴 값을 리턴합니다. </p>
+<pre><code class="c language-c">// net/socket.c:247
+
+/**
+ *      move_addr_to_kernel     -       copy a socket address into kernel space
+ *      @uaddr: Address in user space
+ *      @kaddr: Address in kernel space
+ *      @ulen: Length in user space
+ *
+ *      The address is copied into kernel space. If the provided address is
+ *      too long an error code of -EINVAL is returned. If the copy gives
+ *      invalid addresses -EFAULT is returned. On a success 0 is returned.
+ */
+
+int move_addr_to_kernel(void __user *uaddr, int ulen, struct sockaddr_storage *kaddr)
+{
+        if (ulen &lt; 0 || ulen &gt; sizeof(struct sockaddr_storage))
+                return -EINVAL;
+        if (ulen == 0)
+                return 0;
+        if (copy_from_user(kaddr, uaddr, ulen))
+                return -EFAULT;
+        return audit_sockaddr(ulen, kaddr);
+}
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/28/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>

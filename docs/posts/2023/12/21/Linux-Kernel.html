@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/21/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="664netsocketc174pf_family_namesconstchar">리눅스 커널 코드 스니펫 6.6.4 net/socket.c:174 pf<em>family</em>names: const char *[]</h2>
+<p>각각의 프로토콜 정수 값과 문자열을 매핑한 데이터입니다.</p>
+<p>PF<em>UNSPEC: 지정되지 않은 프로토콜
+PF</em>UNIX/PF<em>LOCAL: 유닉스 혹은 로컬 프로토콜
+PF</em>INET: 인터넷 프로토콜
+PF<em>AX25: Amateur Radio AX.25 프로토콜
+PF</em>IPX: Novell IPX 프토토콜
+PF<em>APPLETALK: 애플토크 프로토콜
+PF</em>NETROM: 아마추어 라디오 네트워킹에 사용되는 프로토콜
+PF<em>BRIDGE: 다중 프로토콜 브리지에 사용되는 프로토콜
+PF</em>ATMPVC: ATM 네트워크에서 가상 회선을 생성하고 관리하는 데 사용되는 프로토콜
+PF<em>X25: X.25 네트워크에서 연결 지향 데이터 전송을 제공하는 프로토콜입
+PF</em>INET6: 인터넷 버전 6 프로토콜
+PF<em>ROSE: X.25 네트워크에서 향상된 기능을 제공하기 위해 개발된 프로토콜
+PF</em>DECnet: Digital Equipment Corporation (DEC)가 개발한 DECnet 네트워크를 위한 프로토콜
+PF<em>NETBEUI: IBM에서 개발한 비연결형 데이터그램 프로토콜
+PF</em>SECURITY: 실제 프로토콜이 아니며, 보안 관련 기능을 제공하기 위해 사용
+PF<em>KEY: IPsec을 포함한 다양한 보안 프로토콜에서 사용되는 키 관리 프로토콜
+PF</em>NETLINK/PF<em>ROUTE: 네트워크 경로 정보를 교환하기 위해 사용되는 프로토콜
+PF</em>PACKET: 이더넷, 토큰링, FDDI와 같은 하위 계층 프로토콜을 직접 제어할 수 있는 프로토콜
+PF<em>ASH:  IBM에서 개발한 애플리케이션 계층 소켓 프로토콜
+PF</em>ECONET: Acorn Computers에서 개발한 네트워크 프로토콜
+PF<em>ATMSVC: ATM 네트워크에서 사용되는 프로토콜
+PF</em>RDS: 신뢰할 수 있는 데이터그램 소켓 프로토콜
+PF<em>SNA: IBM Systems Network Architecture(SNA)에서 사용되는 프로토콜
+PF</em>IRDA: 근거리 무선 통신(NFC) 프로토콜인 인프라레드(IR)을 사용하여 데이터를 전송하는 프로토콜
+PF<em>PPPOX: PPP(Point-to-Point Protocol)를 통해 데이터를 전송하는 프로토콜
+PF</em>WANPIPE: WANPIPE API를 사용하여 WAN 연결을 제공하는 프로토콜
+PF<em>LLC: IEEE 802.2 LLC(Logical Link Control) 프로토콜을 사용하여 데이터를 전송하는 프로토콜
+PF</em>IB: InfiniBand(IB) 네트워크를 통해 데이터를 전송하는 프로토콜
+PF<em>MPLS: 멀티 프로토콜 레이블 스위칭(MPLS)을 사용하여 데이터를 전송하는 프로토콜
+PF</em>CAN: CAN(Controller Area Network)을 사용하여 데이터를 전송하는 프로토콜
+PF<em>TIPC: TIPC(Traffic Control In Packets)를 사용하여 데이터를 전송하는 프로토콜
+PF</em>BLUETOOTH: Bluetooth 네트워크를 통해 데이터를 전송하는 프로토콜
+PF<em>IUCV: Intel I/O Virtualization Connectivity(IUCV)를 사용하여 데이터를 전송하는 프로토콜
+PF</em>RXRPC: Remote Procedure Call(RPC)을 사용하여 데이터를 전송하는 프로토콜
+PF<em>ISDN: Integrated Services Digital Network(ISDN)을 사용하여 데이터를 전송하는 프로토콜
+PF</em>PHONET: Phonet 네트워크를 통해 데이터를 전송하는 프로토콜
+PF<em>IEEE802154: IEEE 802.15.4 표준을 사용하여 데이터를 전송하는 프로토콜
+PF</em>CAIF: Cellular Application Interface(CAIF)를 사용하여 데이터를 전송하는 프로토콜
+PF<em>ALG: Crypto API 를 위한 프로토콜
+PF</em>NFC: 근거리 무선통신(NFC) 장치 간에 데이터를 전송하는 프로토콜
+PF<em>VSOCK: 가상 머신(VM) 간에 통신하는 데 사용되는 프로토콜
+PF</em>KCM: 커널 모드에서 실행되는 애플리케이션 간에 안전하고 효율적으로 통신을 위한 프로토콜
+PF<em>QIPCRTR: Qualcomm IPC Router(QIPCRTR)을 통해 Qualcomm 프로세서 내에서 통신을 제공하는 프로토콜
+PF</em>SMC: System Management Controller(SMC)을 통해 하드웨어 컴포넌트 간에 통신을 제공하는 프로토콜
+PF<em>XDP: 리눅스의 네트워크 패킷이 커널에 도달하기 전에 패킷을 처리할 수 있도록 패킷을 필터링하는데 사용되는 프로토콜
+PF</em>MCTP: 리눅스의 관리 구성 요소 간의 통신을 위한 메시지 전송 프로토콜</p>
+<p>대략적으로 네트워크를 위한 프로토콜과 프로세스 상호간의 통신을 위한 IPC 등의 프로토콜로 나뉘어집니다.</p>
+<pre><code class="c language-c">// net/socket.c:174
+
+static const char * const pf_family_names[] = {
+        [PF_UNSPEC]     = "PF_UNSPEC",
+        [PF_UNIX]       = "PF_UNIX/PF_LOCAL",
+        [PF_INET]       = "PF_INET",
+        [PF_AX25]       = "PF_AX25",
+        [PF_IPX]        = "PF_IPX",
+        [PF_APPLETALK]  = "PF_APPLETALK",
+        [PF_NETROM]     = "PF_NETROM",
+        [PF_BRIDGE]     = "PF_BRIDGE",
+        [PF_ATMPVC]     = "PF_ATMPVC",
+        [PF_X25]        = "PF_X25",
+        [PF_INET6]      = "PF_INET6",
+        [PF_ROSE]       = "PF_ROSE",
+        [PF_DECnet]     = "PF_DECnet",
+        [PF_NETBEUI]    = "PF_NETBEUI",
+        [PF_SECURITY]   = "PF_SECURITY",
+        [PF_KEY]        = "PF_KEY",
+        [PF_NETLINK]    = "PF_NETLINK/PF_ROUTE",
+        [PF_PACKET]     = "PF_PACKET",
+        [PF_ASH]        = "PF_ASH",
+        [PF_ECONET]     = "PF_ECONET",
+        [PF_ATMSVC]     = "PF_ATMSVC",
+        [PF_RDS]        = "PF_RDS",
+        [PF_SNA]        = "PF_SNA",
+        [PF_IRDA]       = "PF_IRDA",
+        [PF_PPPOX]      = "PF_PPPOX",
+        [PF_WANPIPE]    = "PF_WANPIPE",
+        [PF_LLC]        = "PF_LLC",
+        [PF_IB]         = "PF_IB",
+        [PF_MPLS]       = "PF_MPLS",
+        [PF_CAN]        = "PF_CAN",
+        [PF_TIPC]       = "PF_TIPC",
+        [PF_BLUETOOTH]  = "PF_BLUETOOTH",
+        [PF_IUCV]       = "PF_IUCV",
+        [PF_RXRPC]      = "PF_RXRPC",
+        [PF_ISDN]       = "PF_ISDN",
+        [PF_PHONET]     = "PF_PHONET",
+        [PF_IEEE802154] = "PF_IEEE802154",
+        [PF_CAIF]       = "PF_CAIF",
+        [PF_ALG]        = "PF_ALG",
+        [PF_NFC]        = "PF_NFC",
+        [PF_VSOCK]      = "PF_VSOCK",
+        [PF_KCM]        = "PF_KCM",
+        [PF_QIPCRTR]    = "PF_QIPCRTR",
+        [PF_SMC]        = "PF_SMC",
+        [PF_XDP]        = "PF_XDP",
+        [PF_MCTP]       = "PF_MCTP",
+};
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/21/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>

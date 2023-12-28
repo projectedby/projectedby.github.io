@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown LinuxReview">
+    <h1><a href="/posts/2023/12/19/Linux-Review.html">Linux Review</a></h1><h2 id="arustimplementationofandroidsbinder">A Rust implementation of Android's Binder</h2>
+<p>By Jonathan Corbet
+November 30, 2023</p>
+<p>https://lore.kernel.org/rust-for-linux/20231101-rust-binder-v1-0-08ba9197f637@google.com/</p>
+<p>우리는 일반적으로 재작성(저녁 식사에 늦게 만드는 불쾌하고 불편한 일)을 지지하지 않습니다. 그렇다면 바인더를 다시 작성하는 이유는 무엇입니까?</p>
+<p>안드로이드에서 바인더는 각각 독립된 프로세서들을 연결해 주는 역할을 하는데, 이것은 RUST로 재작성하는 이유에 대한 논의 내용입니다.</p>
+<ol>
+<li><p>복잡성: 수많은 오류 시나리오를 처리해야 하며 13개의 서로 다른 잠금, 7개의 참조 카운터 및 원자 변수를 결합/중첩하면서도 모든 작업을 최대한 빠르고 효율적으로 수행해야 하는데, 사소한 성능 저하가 일어나면 사용자 환경 또한 민감하게 저하될 수 있는데, 이런 작업을 하기에는 C로 구현된 현재의 코드가 너무 복잡하다.</p></li>
+<li><p>기술부채: 천줄이 넘는 함수에 오류가 발생하기 쉬운 오류 처리 등으로 인하여 혼란스러운 구조가 발생할 있다.</p></li>
+<li><p>보안: Android에서 샌드박스에 실행되는 (프로그램이 보호된 영역에서 동작해 시스템이 부정하게 조작되는 것을 막아주는 환경) 프로그램들도 이 바인더에 직접 접근할 수 있다.</p></li>
+</ol>
+<p>죽, Binder 를 계속 발전시키고, 보안문제, 기술부채를 해결하는 것을 방해하는 것은 높은 복잡성이고, 이 복잡성을 줄이기 위해서 Rust 로 바인더를 구현하기로 결정하였습니다.</p>
+<ul>
+<li>참조 계산, 잠금, 범위 확인과 관련된 실수를 방지</li>
+<li>오류 처리의 복잡성을 줄이는 데 많은 도움 - 소멸자와 같은 기능을 사용하여 보다 단순화된 오류 처리를 허용</li>
+<li>다양한 구조체와 포인터의 소유권 의미를 쉽게 구현 가능 - 바인더 드라이버에는 복잡한 소유권 의미를 갖는 다양한 개체가 존재하고, 일부 포인터는 참조 카운트를 소유하고, 일부 포인터는 독점 소유권을 가지며, 일부 포인터는 객체를 참조만 하고 다른 방식으로 활성 상태로 유지</li>
+<li>프로그래머의 손에서 객체 수명 관리의 복잡성이 사라지고 사용 후의 위험이 줄듦</li>
+</ul>
+<p>RUST 로 재작성하는 코드 구조는 기존 디자인에서 신중하게 고려된 많은 생각들이 반영, 코드 상태, 구조, 가독성, 견고성, 보안, 유지 관리 가능성 및 확장성을 향상시키는 것을 목표합니다.</p>
+<ul>
+<li><p>Rust 바인더는 Android 오픈소스 프로젝트에서 Binder의 정확성을 검증하는 모든 테스트를 통과했습니다. (장치를 부팅하고 다양한 앱과 기능을 문제 없이 실행할 수 있습니다.)</p></li>
+<li><p>기능 패리티의 경우 Rust 바인더는 현재 일부 디버깅 기능을 제외하고 C 바인더가 지원하는 모든 기능을 구현</p></li>
+<li><p>성능</p></li>
+<li><p>벤치마크에서 C 바인더와 유사한 성능을 가지고 있음을 발견</p></li>
+<li><p>Rust 바인더가 트랜잭션 규모가 매우 큰 경우를 제외한 모든 테스트 사례에서 경쟁력이 있다는 것을 알 수 있음</p></li>
+</ul>
+<p>https://lore.kernel.org/rust-for-linux/20231101-rust-binder-v1-0-08ba9197f637@google.com/</p>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Review',
+            url: '/posts/2023/12/19/Linux-Review.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>

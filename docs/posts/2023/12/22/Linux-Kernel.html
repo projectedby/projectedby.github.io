@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/22/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="17664netsocketc227net_familiesstructnet_proto_familynproto">리눅스 커널 코드 스니펫 #17 6.6.4 net/socket.c:227 net<em>families: struct net</em>proto_family *[NPROTO]</h2>
+<p>RCU, READ MOSTLY</p>
+<p>네트워크 프로토콜 패밀리의 생성자를 관리하는 구조체 배열인 net_families 의 선언입니다. __rcu(Read-Copy Update) 매크로로 선언되어 있어서 읽기 수행 시에 잠금없이 사용할 수 있음을 알 수 있고, _<em>read</em>mostly 로 말 그대로 읽는 작업이 주로 일어나는 변수임을 알 수 있습니다. _<em>rcu 로 정의된 것 처럼 읽기 시에는 잠금이 일어나지 않지만, 업데이트 수행 시에는 잠금을 통해서 멀티프로세스 환경에서 일관성을 유지해야 하기에 net</em>family<em>lock 스핀락을 사용합니다. 스핀락은 잠금 시간이 짧은 경우 컨텍스트 스위칭을 일으키지 않고 잠금을 수행할 수 있기에 net</em>proto_family 구조체의 간단한 업데이트의 경우 뮤텍스보다 더 효율적일 수 있을 것입니다.</p>
+<pre><code class="c language-c">// net/socket.c:227
+
+/*
+ *      The protocol list. Each protocol is registered in here.
+ */
+
+static DEFINE_SPINLOCK(net_family_lock);
+static const struct net_proto_family __rcu *net_families[NPROTO] __read_mostly;
+
+// ./include/linux/net.h:231
+struct net_proto_family {
+        int             family;
+        int             (*create)(struct net *net, struct socket *sock,
+                                  int protocol, int kern);
+        struct module   *owner;
+};
+</code></pre>
+<p>코드 설명:</p>
+<ol>
+<li>DEFINE<em>SPINLOCK(net</em>family_lock);</li>
+</ol>
+<p>SPINLOCK: 스핀락(spinlock)을 선언하는 매크로입니다. 스핀락은 다중 프로세서 환경에서 공유 데이터를 보호하는 데 사용되는 동기화 메커니즘입니다.
+net<em>family</em>lock: 스핀락의 이름입니다. 이 스핀락은 net_families 배열에 대한 접근을 보호하기 위해 사용됩니다.</p>
+<ol start="2">
+<li>static const struct net<em>proto</em>family _<em>rcu *net</em>families[NPROTO] _<em>read</em>mostly;</li>
+</ol>
+<p>net<em>families: net</em>proto_family 구조체를 가리키는 포인터 배열입니다.
+NPROTO: 배열의 크기를 나타내는 상수입니다.
+__rcu: 읽기 전용 RCU(Read-Copy Update) 접근 방식을 지정하는 매크로입니다. 이는 해당 데이터가 동시에 읽기만 가능하다는 것을 의미합니다.
+_<em>read</em>mostly: 데이터가 대부분 읽기 작업에 사용될 것임을 나타내는 매크로입니다. 이는 컴파일러에게 최적화 시 읽기 접근에 유리한 전략을 선택하도록 유도합니다.
+구조체의 역할:</p>
+<p>net<em>family</em>lock: 여러 프로세스가 동시에 net<em>families 배열에 접근하는 것을 방지하여 데이터 손상을 막습니다.
+net</em>families: 네트워크 프로토콜 패밀리를 관리하는 데 사용됩니다. 각 프로토콜 패밀리는 net<em>proto</em>family 구조체로 표현됩니다.
+__rcu 및 _<em>read</em>mostly 매크로는 성능 최적화에 도움이 됩니다.
+추가 정보:</p>
+<p>SPINLOCK: 스핀락은 짧은 시간 동안의 동기화에 적합합니다. 오래 걸리는 작업의 경우 mutex와 같은 다른 동기화 메커니즘을 사용하는 것이 좋습니다.
+RCU: RCU는 읽기 작업이 잦은 대규모 데이터 구조의 동기화에서 효율적인 기법입니다.
+_<em>read</em>mostly: 이 매크로는 컴파일러에게 데이터를 캐시에 저장하는 등, 읽기 작업에 최적화된 전략을 선택하도록 유도합니다.</p>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/22/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>

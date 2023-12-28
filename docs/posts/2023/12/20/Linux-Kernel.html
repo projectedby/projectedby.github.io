@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon">
+        <link href="/asset/image/icon/180/favicon.png" rel="apple-touch-icon">
+        <title>ProjectedBy/CMS</title>
+        <!-- <link rel="manifest" href="/manifest.json"> -->
+                <!-- OPENGRAPH -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:title" content="ProjectedBy/CMS">
+        <meta property="og:image" content="/asset/image/opengraph/default.jpg">
+        <meta property="og:description" content="컨텐츠 관리 시스템">
+        <meta property="og:site_name" content="ProjectedBy/Sub">
+        <meta property="og:locale" content="ko_KR">
+        <meta property="og:image:width" content="869">
+        <meta property="og:image:height" content="701">
+        <!-- TWITTER -->
+        <meta name="twitter:card" content="website" /> 
+        <meta name="twitter:title" content="ProjectedBy/CMS" /> 
+        <meta name="twitter:description" content="컨텐츠 관리 시스템" /> 
+        <meta name="twitter:image" content="/asset/image/opengraph/default.jpg " /> 
+        <!-- iOS -->
+        <!-- <meta property="al:ios:url" content=" ios 앱 URL" />
+        <meta property="al:ios:app_store_id" content="ios 앱스토어 ID" /> 
+        <meta property="al:ios:app_name" content="ios 앱 이름" />  -->
+        <!-- Android -->
+        <!-- <meta property="al:android:url" content="안드로이드 앱 URL" />
+        <meta property="al:android:app_name" content="안드로이드 앱 이름" />
+        <meta property="al:android:package" content="안드로이드 패키지 이름" /> 
+        <meta property="al:web:url" content="안드로이드 앱 URL" /> -->
+
+                <script src="https://kit.fontawesome.com/1144ba9326.js" crossorigin="anonymous"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="/asset/css/cms.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <div class="container-fluid">
+            <div class="navbar-left d-flex justify-content-start align-items-center">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                    <img src="/asset/image/icon/48/favicon.png" alt="ProjectedBy/Sub" width="24" height="24" class="me-2">
+                    ProjectedBy/Sub
+                </a>
+                <span style="font-size: .75rem;">
+                    인공지능과 프로그래밍과 관련된 소식을 전달해 드립니다.
+                </span>
+            </div>
+            <div class="navbar-right d-flex justify-content-end align-items-center">
+                <p style="vertical-align: baseline;" class="d-none d-sm-block"> 
+                    <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                </p>
+            </div>
+        </div>
+      </nav>
+</header>
+<!-- HEADER -->
+        <div class="container p-0 d-flex justify-content-center align-items-center">
+            <div class="markdown Linux Kernel">
+    <h1><a href="/posts/2023/12/20/Linux-Kernel.html">Linux Kernel</a></h1><h2 id="15664netsocketc154file_operationssocket_file_opsconststruct">리눅스 커널 코드 스니펫 #15 6.6.4 net/socket.c:154 file<em>operations socket</em>file_ops: const struct</h2>
+<p>이 구조체는 일반적인 파일 연산을 소켓과 관련한 특수한 함수로 매핑하는 역할을 합니다. 객체 지향의 클래스로 생각한다면 가상 함수라고 생각하셔도 됩니다. 이 구조체는 미리 정적으로 정의되어 있으며, <code>sock_alloc_file</code> 함수에서 소켓을 통해 파일 객체를 생성할 때 <code>alloc_file_pseudo</code> 함수를 호출하는데, 이때 파라미터로 전달됩니다.</p>
+<ul>
+<li>owner: 모듈의 소유자 (THIS_MODULE)</li>
+<li>llseek: 소켓에서는 지원하지 않기 때문에 no_llseek 으로 설정</li>
+<li>read_iter: 파일에서 데이터를 읽는 함수</li>
+<li>write_iter: 파일에 데이터를 쓰는 함수</li>
+<li>poll: 파일에 읽기 또는 쓰기 이벤트가 발생했는지 확인하는 함수</li>
+<li>unlocked_ioctl: 소켓 제어 명령을 수행하는 함수</li>
+<li>compat<em>ioctl: ioctl 의 호환성을 위하여 이전 구현을 지원하기 함수로 CONFIG</em>COMPAT 설정으로 컴파일을 해야 합니다.</li>
+<li>uring<em>cmd: io</em>uring을 사용하는 소켓 연산을 수행하는 함수</li>
+<li>mmap: 소켓의 메모리를 프로세스 메모리에 매핑하는 함수</li>
+<li>release: 파일이 닫힐 때 호출되는 함수</li>
+<li>fasync: 파일에 대한 비동기 통지를 설정하는 함수</li>
+<li>splice_write: splice 시스템 콜을 통해 데이터를 소켓에 쓰는 함수</li>
+<li>splice_read: splice 시스템 콜을 통해 소켓에서 데이터를 읽는 함수</li>
+<li>splice_eof: splice 시스템 콜을 통해 파일의 끝을 알리는 함수</li>
+<li>show<em>fdinfo: 파일의 정보를 seq</em>file 구조체에 출력하는 함수</li>
+</ul>
+<p>빌드 시점에 각 모듈에 고유한 심볼 _<em>this</em>module이 정의되고, THIS_MODULE 매크로는 이 모듈에 대한 참조를 반환하는데, 이 정보에는 참조 카운팅, 디버깅을 위한 메타 정보들이 들어 있습니다.</p>
+<pre><code class="c language-c">// net/socket.c:154
+
+/*
+ *      Socket files have a set of 'special' operations as well as the generic file ones. These don't appear
+ *      in the operation structures but are done directly via the socketcall() multiplexor.
+ */
+
+static const struct file_operations socket_file_ops = {
+        .owner =        THIS_MODULE,
+        .llseek =       no_llseek,
+        .read_iter =    sock_read_iter,
+        .write_iter =   sock_write_iter,
+        .poll =         sock_poll,
+        .unlocked_ioctl = sock_ioctl,
+#ifdef CONFIG_COMPAT
+        .compat_ioctl = compat_sock_ioctl,
+#endif
+        .uring_cmd =    io_uring_cmd_sock,
+        .mmap =         sock_mmap,
+        .release =      sock_close,
+        .fasync =       sock_fasync,
+        .splice_write = splice_to_socket,
+        .splice_read =  sock_splice_read,
+        .splice_eof =   sock_splice_eof,
+
+        .show_fdinfo =  sock_show_fdinfo,
+};
+</code></pre>
+    <div class="button text-end small fw-bold my-5">
+        <a href="#" onclick="return projectedby.share({
+            text: '',
+            title: 'Linux Kernel',
+            url: '/posts/2023/12/20/Linux-Kernel.html'
+        });" class="me-2">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </a>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+<footer class="bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 small" style="font-size: .75rem;">
+                <div class="row mb-1">
+                    <div class="col fw-bold">
+                        <a href="/about.html" class="me-2"><i class="fa-solid fa-eye" style="margin-right: 3px;"></i>About</a>
+                        <a href="mailto:novemberizing@gmail.com" class="me-2"><i class="fa-solid fa-at" style="margin-right: 3px;"></i>Novemberizing</a>
+                        <a href="https://github.com/projectedby/cms.git" class="me-2"><i class="fa-solid fa-gear" style="margin-right: 3px;"></i>ProjectedBy/CMS</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Copyright @Novemberizing. All rights reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 small fw-bold text-end footer-company-link d-flex justify-content-end align-items-end">
+                <div class="row">
+                    <div class="col">
+                        <a href="/subscribe.html" class="fw-bold"><i class="fa-solid fa-envelope"></i> Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER -->
+        
+                <script src="/asset/vendor/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+        <script src="/asset/javascript/cms.js" type="module"></script>
+    </body>
+</html>
